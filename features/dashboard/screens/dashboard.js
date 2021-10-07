@@ -12,7 +12,7 @@ function DasboardScreen(props): Component {
   };
 
   const launchesClicked = function () {
-    return () => console.log('launches info clicked');
+    return () => navigation.navigate('Launches');
   };
 
   return (

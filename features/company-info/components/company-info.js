@@ -4,7 +4,6 @@ import CommonStyles from '../../../shared/styles/common-styles';
 import StyleContext from '../../../shared/styles/style-context';
 
 export default function CompanyInfo(props) {
-  console.log(JSON.stringify(props.info));
   const DefaultStyles = useContext(StyleContext);
   return (
     <View style={[CommonStyles.Column, CommonStyles.Expanded]}>

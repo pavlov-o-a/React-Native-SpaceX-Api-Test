@@ -9,6 +9,7 @@ import CompanyInfoScreen from './features/company-info/screens/company-info';
 import StyleContext from './shared/styles/style-context';
 import StyleDay from './shared/styles/theme-style-day';
 import StyleNight from './shared/styles/theme-style-day';
+import LaunchesScreen from './features/launches/screens/launches';
 
 const Stack = createNativeStackNavigator();
 
@@ -22,6 +23,7 @@ const App: () => Node = () => {
           screenOptions={{title: 'SpaceX'}}>
           <Stack.Screen name="Dashboard" component={DasboardScreen} />
           <Stack.Screen name="CompanyInfo" component={CompanyInfoScreen} />
+          <Stack.Screen name="Launches" component={LaunchesScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </StyleContext.Provider>

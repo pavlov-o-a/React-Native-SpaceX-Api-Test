@@ -4,6 +4,9 @@ const CommonStyles = StyleSheet.create({
   Column: {
     flexDirection: 'column',
   },
+  Row: {
+    flexDirection: 'row',
+  },
   Center: {
     alignContent: 'center',
     justifyContent: 'center',
