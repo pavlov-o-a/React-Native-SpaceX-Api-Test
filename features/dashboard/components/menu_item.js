@@ -2,11 +2,9 @@ import React, { Component } from 'react';
 import { Button, StyleSheet, Text, View } from 'react-native';
 import DefaultStyle from '../../../shared/styles/theme.style'
 
-class MenuItem extends Component {
-    render() {
-        const { title, click } = this.props;
-        return (<View style={styles.Container}><Button title={title} onPress={click} /></View>)
-    }
+function MenuItem(props): Component {
+    const { title, click } = props;
+    return (<View style={styles.Container}><Button title={title} onPress={click} /></View>)
 }
 
 const styles = StyleSheet.create({

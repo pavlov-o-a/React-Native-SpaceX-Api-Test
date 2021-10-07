@@ -13,27 +13,26 @@ import { NavigationContainer } from '@react-navigation/native';
 import Header from '../components/header';
 import MenuItem from '../components/menu_item';
 
-class DasboardScreen extends Component {
-    render() {
-        const { navigation } = this.props
-        return (
-            <SafeAreaView>
-                <View style={{ flexDirection: 'column' }}>
-                    <Header />
-                    <MenuItem title='Company info' click={this.companyInfoClicked(navigation)} />
-                    <MenuItem title='Launches' click={this.launchesClicked()} />
-                </View>
-            </SafeAreaView>
-        )
-    }
+function DasboardScreen(props): Component {
+    const { navigation } = props
 
-    companyInfoClicked(navigation) {
+    const companyInfoClicked = function(navigation) {
         return () => navigation.navigate('CompanyInfo')
     }
 
-    launchesClicked() {
+    const launchesClicked = function() {
         return () => console.log('launches info clicked')
     }
+    
+    return (
+        <SafeAreaView>
+            <View style={{ flexDirection: 'column' }}>
+                <Header />
+                <MenuItem title='Company info' click={companyInfoClicked(navigation)} />
+                <MenuItem title='Launches' click={launchesClicked()} />
+            </View>
+        </SafeAreaView>
+    )
 }
 
 export default DasboardScreen
