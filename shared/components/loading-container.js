@@ -1,18 +1,13 @@
-import React, {Component, useState, useEffect} from 'react';
-import {View, Text} from 'react-native';
+import React, {Component} from 'react';
+import {View, ActivityIndicator} from 'react-native';
+import CommonStyles from '../styles/common-styles';
 
 function LoadingContainer(props): Component {
-  const [isLoaded, loaded] = useState(false);
-  useEffect(() => {
-    const _loaded = loaded;
-    setTimeout(() => _loaded(true), 2000);
-  }, []);
-
   let currentView;
-  if (!isLoaded) {
+  if (props.isLoading) {
     currentView = (
-      <View>
-        <Text>Loading data</Text>
+      <View style={[CommonStyles.Center, CommonStyles.Expanded]}>
+        <ActivityIndicator size="large" />
       </View>
     );
   } else {
