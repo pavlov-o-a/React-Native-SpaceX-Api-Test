@@ -9,28 +9,30 @@ import {
     useColorScheme,
     View,
 } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
 import Header from '../components/header';
 import MenuItem from '../components/menu_item';
 
 class DasboardScreen extends Component {
     render() {
+        const { navigation } = this.props
         return (
             <SafeAreaView>
-                <View style={{ flexDirection: "column" }}>
+                <View style={{ flexDirection: 'column' }}>
                     <Header />
-                    <MenuItem title="Company info" click={this.companyInfoClicked()} />
-                    <MenuItem title="Launches" click={this.launchesClicked()} />
+                    <MenuItem title='Company info' click={this.companyInfoClicked(navigation)} />
+                    <MenuItem title='Launches' click={this.launchesClicked()} />
                 </View>
             </SafeAreaView>
         )
     }
 
-    companyInfoClicked() {
-        console.log("company info clicked")
+    companyInfoClicked(navigation) {
+        return () => navigation.navigate('CompanyInfo')
     }
 
     launchesClicked() {
-        console.log("launches info clicked")
+        return () => console.log('launches info clicked')
     }
 }
 
