@@ -1,7 +1,8 @@
 import React, {useContext} from 'react';
 import {FlatList, StyleSheet, Text, View} from 'react-native';
 import CommonStyles from '../../../shared/styles/common-styles';
-import StyleContext from '../../../shared/styles/style-context';
+import StyleContext from '../../../shared/providers/style-context';
+import ThemeStyle from '../../../shared/entities/theme-stlye';
 
 export default function LaunchesList(props) {
   return (
@@ -15,25 +16,25 @@ export default function LaunchesList(props) {
 }
 
 function LaunchItem(props) {
-  const DefaultStyles = useContext(StyleContext);
+  const baseStyle = useContext(StyleContext);
   return (
-    <View style={[CommonStyles.Column, Styles(DefaultStyles).Item]}>
+    <View style={[CommonStyles.Column, Styles(baseStyle).Item]}>
       <View style={CommonStyles.Row}>
-        <Text style={Styles(DefaultStyles).Label}>{'Name: '}</Text>
-        <Text style={Styles(DefaultStyles).Text}>{props.name}</Text>
+        <Text style={Styles(baseStyle).Label}>{'Name: '}</Text>
+        <Text style={Styles(baseStyle).Text}>{props.name}</Text>
       </View>
       <View style={CommonStyles.Row}>
-        <Text style={Styles(DefaultStyles).Label}>{'Date: '}</Text>
-        <Text style={Styles(DefaultStyles).Text}>{props.date}</Text>
+        <Text style={Styles(baseStyle).Label}>{'Date: '}</Text>
+        <Text style={Styles(baseStyle).Text}>{props.date}</Text>
       </View>
-      <Text style={Styles(DefaultStyles).Label}>{'Details: '}</Text>
-      <Text style={Styles(DefaultStyles).Text}>{props.details}</Text>
+      <Text style={Styles(baseStyle).Label}>{'Details: '}</Text>
+      <Text style={Styles(baseStyle).Text}>{props.details}</Text>
       <Text />
     </View>
   );
 }
 
-const Styles = DefaultStyles =>
+const Styles = (baseStyle: ThemeStyle) =>
   StyleSheet.create({
     Item: {
       marginStart: 20,
@@ -42,11 +43,11 @@ const Styles = DefaultStyles =>
       marginTop: 10,
     },
     Label: {
-      fontSize: DefaultStyles.FONT_SIZE_MEDIUM,
-      color: DefaultStyles.FONT_SECONDARY_COLOR,
+      fontSize: baseStyle.fontSizeMedium,
+      color: baseStyle.fontSecondaryColor,
     },
     Text: {
-      fontSize: DefaultStyles.FONT_SIZE_MEDIUM,
-      color: DefaultStyles.FONT_PRIMARY_COLOR,
+      fontSize: baseStyle.fontSizeMedium,
+      color: baseStyle.fontPrimaryColor,
     },
   });

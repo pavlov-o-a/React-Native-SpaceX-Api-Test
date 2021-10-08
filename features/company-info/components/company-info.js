@@ -1,15 +1,16 @@
 import React, {useContext} from 'react';
 import {View, Image, Text, StyleSheet, ScrollView} from 'react-native';
 import CommonStyles from '../../../shared/styles/common-styles';
-import StyleContext from '../../../shared/styles/style-context';
+import StyleContext from '../../../shared/providers/style-context';
+import ThemeStyle from '../../../shared/entities/theme-stlye';
 
 export default function CompanyInfo(props) {
-  const DefaultStyles = useContext(StyleContext);
+  const baseStyle = useContext(StyleContext);
   return (
     <View style={[CommonStyles.Column, CommonStyles.Expanded]}>
       <ScrollView>
         <Image
-          style={Styles(DefaultStyles).Image}
+          style={Styles(baseStyle).Image}
           source={{uri: props.info.imageUrl}}
         />
         <Entry title={'Founder'} text={props.info.founder} />
@@ -22,16 +23,16 @@ export default function CompanyInfo(props) {
 }
 
 function Entry(props) {
-  const DefaultStyles = useContext(StyleContext);
+  const baseStyle = useContext(StyleContext);
   return (
-    <View style={[CommonStyles.Column, Styles(DefaultStyles).Entry]}>
-      <Text style={Styles(DefaultStyles).EntryTitle}>{props.title}</Text>
-      <Text style={Styles(DefaultStyles).EntryText}>{props.text}</Text>
+    <View style={[CommonStyles.Column, Styles(baseStyle).Entry]}>
+      <Text style={Styles(baseStyle).EntryTitle}>{props.title}</Text>
+      <Text style={Styles(baseStyle).EntryText}>{props.text}</Text>
     </View>
   );
 }
 
-const Styles = DefaultStyles =>
+const Styles = (baseStyle: ThemeStyle) =>
   StyleSheet.create({
     Image: {
       width: 50,
@@ -46,14 +47,14 @@ const Styles = DefaultStyles =>
       marginBottom: 10,
     },
     EntryTitle: {
-      fontSize: DefaultStyles.FONT_SIZE_LARGE,
-      color: DefaultStyles.FONT_SECONDARY_COLOR,
+      fontSize: baseStyle.fontSizeLarge,
+      color: baseStyle.fontSecondaryColor,
       alignSelf: 'center',
       marginBottom: 10,
     },
     EntryText: {
-      fontSize: DefaultStyles.FONT_SIZE_LARGE,
-      color: DefaultStyles.FONT_PRIMARY_COLOR,
+      fontSize: baseStyle.fontSizeLarge,
+      color: baseStyle.fontPrimaryColor,
       alignSelf: 'center',
     },
   });

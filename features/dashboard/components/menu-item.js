@@ -1,22 +1,23 @@
 import React, {Component, useContext} from 'react';
 import {Button, StyleSheet, View} from 'react-native';
-import StyleContext from '../../../shared/styles/style-context';
+import ThemeStyle from '../../../shared/entities/theme-stlye';
+import StyleContext from '../../../shared/providers/style-context';
 
 function MenuItem(props): Component {
-  const DefaultStyle = useContext(StyleContext);
+  const baseStyle = useContext(StyleContext);
   const {title, click} = props;
   return (
-    <View style={styles(DefaultStyle).Container}>
+    <View style={styles(baseStyle).Container}>
       <Button title={title} onPress={click} />
     </View>
   );
 }
 
-const styles = DefaultStyle =>
+const styles = (baseStyle: ThemeStyle) =>
   StyleSheet.create({
     Title: {
       fontSize: 20,
-      color: DefaultStyle.FONT_PRIMARY_COLOR,
+      color: baseStyle.fontPrimaryColor,
     },
     Container: {
       marginBottom: 5,

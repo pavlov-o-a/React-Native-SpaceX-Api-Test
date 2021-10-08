@@ -1,13 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, {Component, useEffect, useReducer} from 'react';
+import React, {Component, useContext, useEffect, useReducer} from 'react';
 import {SafeAreaView} from 'react-native';
 import {Actions} from '../../../shared/actions';
 import LoadingContainer from '../../../shared/components/loading-container';
+import BaseRequestContext from '../../../shared/providers/base-request-context';
 import Delay from '../../../shared/utils/delay';
+import {getCompanyInfoRequest} from '../api/company-info-api';
 import CompanyInfo from '../components/company-info';
 import CompanyInfoMapper from '../mappers/company-info';
-
-const companyInfoUrl = 'https://api.spacexdata.com/v4/company';
 
 export default function CompanyInfoScreen(): Component {
   function updateState(state, action) {
@@ -20,9 +20,13 @@ export default function CompanyInfoScreen(): Component {
     getCompanyInfo();
   }, []);
 
+  const companyInfoRequest = getCompanyInfoRequest(
+    useContext(BaseRequestContext),
+  );
+
   function getCompanyInfo() {
-    Delay(1000)
-      .then(() => fetch(companyInfoUrl))
+    Delay(1000) // romove in prod version. only for demonstration
+      .then(() => fetch(companyInfoRequest.url, companyInfoRequest.options))
       .then(response => response.json())
       .then(data => {
         state.data = CompanyInfoMapper(data);

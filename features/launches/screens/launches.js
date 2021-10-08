@@ -1,13 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, {useEffect, useReducer} from 'react';
+import React, {useContext, useEffect, useReducer} from 'react';
 import {SafeAreaView} from 'react-native';
 import {Actions} from '../../../shared/actions';
 import LoadingContainer from '../../../shared/components/loading-container';
+import BaseRequestContext from '../../../shared/providers/base-request-context';
 import Delay from '../../../shared/utils/delay';
-import LunchesMapper from '../mappers/launches-mapper';
+import {getLaunchesRequest} from '../api/launches-api';
+import LunchesMapper from '../api/launches-mapper';
 import LaunchesList from '../components/launches-list';
 
-const LaunchesUrl = 'https://api.spacexdata.com/v5/launches';
 export default function LaunchesScreen(props) {
   function updateState(state, action) {
     state.isLoading = action === Actions.LOADING;
@@ -19,9 +20,11 @@ export default function LaunchesScreen(props) {
     getCompanyInfo();
   }, []);
 
+  const launchesRequest = getLaunchesRequest(useContext(BaseRequestContext));
+
   function getCompanyInfo() {
-    Delay(1000)
-      .then(() => fetch(LaunchesUrl))
+    Delay(1000) // romove in prod version. only for demonstration
+      .then(() => fetch(launchesRequest.url, launchesRequest.options))
       .then(response => response.json())
       .then(data => {
         state.launches = LunchesMapper(data);
