@@ -5,7 +5,8 @@ import StyleContext from '../../../shared/providers/style-context';
 import ThemeStyle from '../../../shared/entities/theme-stlye';
 
 function Header(): Component {
-  const baseStyle = useContext(StyleContext);
+  const baseStyle = useContext(StyleContext).theme;
+  console.log(JSON.stringify(baseStyle));
   return (
     <View style={CommonStyles.Column}>
       <Text style={styles(baseStyle).Title}>SpaceX Info</Text>

@@ -1,9 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, {useContext, useEffect, useReducer} from 'react';
-import {SafeAreaView} from 'react-native';
+import {SafeAreaView, View} from 'react-native';
 import {Actions} from '../../../shared/actions';
 import LoadingContainer from '../../../shared/components/loading-container';
+import ThemeStyle from '../../../shared/entities/theme-stlye';
 import BaseRequestContext from '../../../shared/providers/base-request-context';
+import StyleContext from '../../../shared/providers/style-context';
 import Delay from '../../../shared/utils/delay';
 import {getLaunchesRequest} from '../api/launches-api';
 import LunchesMapper from '../api/launches-mapper';
@@ -37,11 +39,15 @@ export default function LaunchesScreen(props) {
       });
   }
 
+  const theme: ThemeStyle = useContext(StyleContext).theme;
+
   return (
     <SafeAreaView>
-      <LoadingContainer isLoading={state.isLoading}>
-        <LaunchesList launches={state.launches} />
-      </LoadingContainer>
+      <View style={{backgroundColor: theme.background}}>
+        <LoadingContainer isLoading={state.isLoading}>
+          <LaunchesList launches={state.launches} />
+        </LoadingContainer>
+      </View>
     </SafeAreaView>
   );
 }

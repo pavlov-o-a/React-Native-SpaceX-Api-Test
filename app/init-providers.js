@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {useColorScheme} from 'react-native';
 import {DayTheme, NightTheme} from '../shared/constants';
 import ApiRequest from '../shared/entities/api-request';
@@ -14,9 +14,11 @@ export default function GlobalProviders(props) {
 }
 
 function StyleProvider(props) {
-  const isDarkMode = useColorScheme() === 'dark';
+  const [theme, setTheme] = useState(
+    useColorScheme() === 'dark' ? NightTheme : DayTheme,
+  );
   return (
-    <StyleContext.Provider value={isDarkMode ? NightTheme : DayTheme}>
+    <StyleContext.Provider value={{theme: theme, callback: setTheme}}>
       {props.children}
     </StyleContext.Provider>
   );

@@ -16,7 +16,7 @@ export default function LaunchesList(props) {
 }
 
 function LaunchItem(props) {
-  const baseStyle = useContext(StyleContext);
+  const baseStyle = useContext(StyleContext).theme;
   return (
     <View style={[CommonStyles.Column, Styles(baseStyle).Item]}>
       <View style={CommonStyles.Row}>

@@ -5,7 +5,7 @@ import StyleContext from '../../../shared/providers/style-context';
 import ThemeStyle from '../../../shared/entities/theme-stlye';
 
 export default function CompanyInfo(props) {
-  const baseStyle = useContext(StyleContext);
+  const baseStyle = useContext(StyleContext).theme;
   return (
     <View style={[CommonStyles.Column, CommonStyles.Expanded]}>
       <ScrollView>
@@ -23,7 +23,7 @@ export default function CompanyInfo(props) {
 }
 
 function Entry(props) {
-  const baseStyle = useContext(StyleContext);
+  const baseStyle = useContext(StyleContext).theme;
   return (
     <View style={[CommonStyles.Column, Styles(baseStyle).Entry]}>
       <Text style={Styles(baseStyle).EntryTitle}>{props.title}</Text>

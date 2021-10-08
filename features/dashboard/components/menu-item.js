@@ -4,7 +4,7 @@ import ThemeStyle from '../../../shared/entities/theme-stlye';
 import StyleContext from '../../../shared/providers/style-context';
 
 function MenuItem(props): Component {
-  const baseStyle = useContext(StyleContext);
+  const baseStyle = useContext(StyleContext).theme;
   const {title, click} = props;
   return (
     <View style={styles(baseStyle).Container}>

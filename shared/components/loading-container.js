@@ -6,7 +6,7 @@ function LoadingContainer(props): Component {
   let currentView;
   if (props.isLoading) {
     currentView = (
-      <View style={[CommonStyles.Center, CommonStyles.Expanded]}>
+      <View style={[CommonStyles.Center, CommonStyles.Expanded, props.style]}>
         <ActivityIndicator size="large" />
       </View>
     );

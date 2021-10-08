@@ -1,9 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, {Component, useContext, useEffect, useReducer} from 'react';
-import {SafeAreaView} from 'react-native';
+import {SafeAreaView, View} from 'react-native';
 import {Actions} from '../../../shared/actions';
 import LoadingContainer from '../../../shared/components/loading-container';
 import BaseRequestContext from '../../../shared/providers/base-request-context';
+import StyleContext from '../../../shared/providers/style-context';
+import CommonStyles from '../../../shared/styles/common-styles';
 import Delay from '../../../shared/utils/delay';
 import {getCompanyInfoRequest} from '../api/company-info-api';
 import CompanyInfo from '../components/company-info';
@@ -38,11 +40,17 @@ export default function CompanyInfoScreen(): Component {
       });
   }
 
+  const theme = useContext(StyleContext).theme;
+
   return (
     <SafeAreaView>
-      <LoadingContainer isLoading={state.isLoading}>
-        <CompanyInfo info={state.data} />
-      </LoadingContainer>
+      <View style={{backgroundColor: theme.background}}>
+        <LoadingContainer
+          isLoading={state.isLoading}
+          style={[CommonStyles.Expanded, {backgroundColor: theme.background}]}>
+          <CompanyInfo info={state.data} />
+        </LoadingContainer>
+      </View>
     </SafeAreaView>
   );
 }
