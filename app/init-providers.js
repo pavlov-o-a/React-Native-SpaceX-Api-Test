@@ -13,7 +13,7 @@ export default function GlobalProviders(props) {
   );
 }
 
-function StyleProvider(props) {
+export function StyleProvider(props) {
   const [theme, setTheme] = useState(
     useColorScheme() === 'dark' ? NightTheme : DayTheme,
   );
