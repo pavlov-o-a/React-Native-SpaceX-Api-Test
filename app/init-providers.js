@@ -1,14 +1,14 @@
 import React, {useState} from 'react';
 import {useColorScheme} from 'react-native';
 import {DayTheme, NightTheme} from '../shared/constants';
-import ApiRequest from '../shared/entities/api-request';
-import BaseRequestContext from '../shared/providers/base-request-context';
+import ApiClient from '../shared/core/api-client';
+import ApiClientContext from '../shared/providers/api-client-context';
 import StyleContext from '../shared/providers/style-context';
 
 export default function GlobalProviders(props) {
   return (
     <StyleProvider>
-      <BaserRequestProvider>{props.children}</BaserRequestProvider>
+      <ApiClientProvider>{props.children}</ApiClientProvider>
     </StyleProvider>
   );
 }
@@ -24,11 +24,11 @@ function StyleProvider(props) {
   );
 }
 
-function BaserRequestProvider(props) {
-  const baseRequest = new ApiRequest('https://api.spacexdata.com/');
+function ApiClientProvider(props) {
+  const apiClient = new ApiClient('https://api.spacexdata.com/');
   return (
-    <BaseRequestContext.Provider value={baseRequest}>
+    <ApiClientContext.Provider value={apiClient}>
       {props.children}
-    </BaseRequestContext.Provider>
+    </ApiClientContext.Provider>
   );
 }

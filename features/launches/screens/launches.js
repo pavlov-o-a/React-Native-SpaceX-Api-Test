@@ -4,9 +4,8 @@ import {SafeAreaView, View} from 'react-native';
 import {Actions} from '../../../shared/actions';
 import LoadingContainer from '../../../shared/components/loading-container';
 import ThemeStyle from '../../../shared/entities/theme-stlye';
-import BaseRequestContext from '../../../shared/providers/base-request-context';
+import ApiClientContext from '../../../shared/providers/api-client-context';
 import StyleContext from '../../../shared/providers/style-context';
-import Delay from '../../../shared/utils/delay';
 import {getLaunchesRequest} from '../api/launches-api';
 import LunchesMapper from '../api/launches-mapper';
 import LaunchesList from '../components/launches-list';
@@ -22,12 +21,12 @@ export default function LaunchesScreen(props) {
     getCompanyInfo();
   }, []);
 
-  const launchesRequest = getLaunchesRequest(useContext(BaseRequestContext));
+  const apiClient = useContext(ApiClientContext);
+  const launchesRequest = getLaunchesRequest(apiClient.baseUrl);
 
   function getCompanyInfo() {
-    Delay(1000) // romove in prod version. only for demonstration
-      .then(() => fetch(launchesRequest.url, launchesRequest.options))
-      .then(response => response.json())
+    apiClient
+      .fetchJson(launchesRequest)
       .then(data => {
         state.launches = LunchesMapper(data);
         dispatch(Actions.COMPLETE);

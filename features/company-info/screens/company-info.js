@@ -3,13 +3,12 @@ import React, {Component, useContext, useEffect, useReducer} from 'react';
 import {SafeAreaView, View} from 'react-native';
 import {Actions} from '../../../shared/actions';
 import LoadingContainer from '../../../shared/components/loading-container';
-import BaseRequestContext from '../../../shared/providers/base-request-context';
+import ApiClientContext from '../../../shared/providers/api-client-context';
 import StyleContext from '../../../shared/providers/style-context';
 import CommonStyles from '../../../shared/styles/common-styles';
-import Delay from '../../../shared/utils/delay';
 import {getCompanyInfoRequest} from '../api/company-info-api';
 import CompanyInfo from '../components/company-info';
-import CompanyInfoMapper from '../mappers/company-info';
+import CompanyInfoMapper from '../api/company-info-mapper';
 
 export default function CompanyInfoScreen(): Component {
   function updateState(state, action) {
@@ -22,14 +21,12 @@ export default function CompanyInfoScreen(): Component {
     getCompanyInfo();
   }, []);
 
-  const companyInfoRequest = getCompanyInfoRequest(
-    useContext(BaseRequestContext),
-  );
+  const apiClient = useContext(ApiClientContext);
+  const companyInfoRequest = getCompanyInfoRequest(apiClient.baseUrl);
 
   function getCompanyInfo() {
-    Delay(1000) // romove in prod version. only for demonstration
-      .then(() => fetch(companyInfoRequest.url, companyInfoRequest.options))
-      .then(response => response.json())
+    apiClient
+      .fetchJson(companyInfoRequest)
       .then(data => {
         state.data = CompanyInfoMapper(data);
         dispatch(Actions.COMPLETE);
