@@ -10,7 +10,7 @@ import {getLaunchesRequest} from '../api/launches-api';
 import LunchesMapper from '../api/launches-mapper';
 import LaunchesList from '../components/launches-list';
 
-export default function LaunchesScreen(props) {
+const LaunchesScreen = props => {
   function updateState(state, action) {
     state.isLoading = action === Actions.LOADING;
     return {isLoading: state.isLoading, launches: state.launches};
@@ -24,7 +24,7 @@ export default function LaunchesScreen(props) {
   const apiClient = useContext(ApiClientContext);
   const launchesRequest = getLaunchesRequest(apiClient.baseUrl);
 
-  function getCompanyInfo() {
+  const getCompanyInfo = () => {
     apiClient
       .fetchJson(launchesRequest)
       .then(data => {
@@ -36,7 +36,7 @@ export default function LaunchesScreen(props) {
         dispatch(Actions.ERROR);
         console.log(e);
       });
-  }
+  };
 
   const theme: ThemeStyle = useContext(StyleContext).theme;
 
@@ -49,4 +49,6 @@ export default function LaunchesScreen(props) {
       </View>
     </SafeAreaView>
   );
-}
+};
+
+export default LaunchesScreen;

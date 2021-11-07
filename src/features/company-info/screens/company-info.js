@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, {Component, useContext, useEffect, useReducer} from 'react';
+import React, {useContext, useEffect, useReducer} from 'react';
 import {SafeAreaView, View} from 'react-native';
 import {Actions} from '../../../shared/actions';
 import LoadingContainer from '../../../shared/components/loading-container';
@@ -10,7 +10,7 @@ import {getCompanyInfoRequest} from '../api/company-info-api';
 import CompanyInfo from '../components/company-info';
 import CompanyInfoMapper from '../api/company-info-mapper';
 
-export default function CompanyInfoScreen(): Component {
+const CompanyInfoScreen = () => {
   function updateState(state, action) {
     state.isLoading = action === Actions.LOADING;
     return {isLoading: state.isLoading, data: state.data};
@@ -50,4 +50,6 @@ export default function CompanyInfoScreen(): Component {
       </View>
     </SafeAreaView>
   );
-}
+};
+
+export default CompanyInfoScreen;

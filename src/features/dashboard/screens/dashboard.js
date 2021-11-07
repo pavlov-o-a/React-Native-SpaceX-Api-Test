@@ -7,16 +7,12 @@ import Header from '../components/header';
 import MenuItem from '../components/menu-item';
 import {DayTheme, NightTheme} from '../../../shared/constants';
 
-function DasboardScreen(props): Component {
+const DasboardScreen = props => {
   const {navigation} = props;
 
-  const companyInfoClicked = function () {
-    return () => navigation.navigate('CompanyInfo');
-  };
+  const companyInfoClicked = () => () => navigation.navigate('CompanyInfo');
 
-  const launchesClicked = function () {
-    return () => navigation.navigate('Launches');
-  };
+  const launchesClicked = () => () => navigation.navigate('Launches');
 
   const providedStyle = useContext(StyleContext);
 
@@ -43,6 +39,6 @@ function DasboardScreen(props): Component {
       </View>
     </SafeAreaView>
   );
-}
+};
 
 export default DasboardScreen;

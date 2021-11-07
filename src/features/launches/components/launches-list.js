@@ -4,7 +4,7 @@ import CommonStyles from '../../../shared/styles/common-styles';
 import StyleContext from '../../../shared/providers/style-context';
 import ThemeStyle from '../../../shared/entities/theme-stlye';
 
-export default function LaunchesList(props) {
+const LaunchesList = props => {
   return (
     <FlatList
       data={props.launches}
@@ -13,9 +13,9 @@ export default function LaunchesList(props) {
       )}
     />
   );
-}
+};
 
-function LaunchItem(props) {
+const LaunchItem = props => {
   const baseStyle = useContext(StyleContext).theme;
   return (
     <View style={[CommonStyles.Column, Styles(baseStyle).Item]}>
@@ -32,7 +32,7 @@ function LaunchItem(props) {
       <Text />
     </View>
   );
-}
+};
 
 const Styles = (baseStyle: ThemeStyle) =>
   StyleSheet.create({
@@ -51,3 +51,5 @@ const Styles = (baseStyle: ThemeStyle) =>
       color: baseStyle.fontPrimaryColor,
     },
   });
+
+export default LaunchesList;

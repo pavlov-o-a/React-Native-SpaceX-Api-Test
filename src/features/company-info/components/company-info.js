@@ -4,7 +4,7 @@ import CommonStyles from '../../../shared/styles/common-styles';
 import StyleContext from '../../../shared/providers/style-context';
 import ThemeStyle from '../../../shared/entities/theme-stlye';
 
-export default function CompanyInfo(props) {
+const CompanyInfo = props => {
   const baseStyle = useContext(StyleContext).theme;
   return (
     <View style={[CommonStyles.Column, CommonStyles.Expanded]}>
@@ -20,9 +20,9 @@ export default function CompanyInfo(props) {
       </ScrollView>
     </View>
   );
-}
+};
 
-function Entry(props) {
+const Entry = props => {
   const baseStyle = useContext(StyleContext).theme;
   return (
     <View style={[CommonStyles.Column, Styles(baseStyle).Entry]}>
@@ -30,7 +30,7 @@ function Entry(props) {
       <Text style={Styles(baseStyle).EntryText}>{props.text}</Text>
     </View>
   );
-}
+};
 
 const Styles = (baseStyle: ThemeStyle) =>
   StyleSheet.create({
@@ -58,3 +58,5 @@ const Styles = (baseStyle: ThemeStyle) =>
       alignSelf: 'center',
     },
   });
+
+export default CompanyInfo;

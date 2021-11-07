@@ -1,10 +1,10 @@
-import React, {Component, useContext} from 'react';
+import React, {useContext} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import CommonStyles from '../../../shared/styles/common-styles';
 import StyleContext from '../../../shared/providers/style-context';
 import ThemeStyle from '../../../shared/entities/theme-stlye';
 
-function Header(): Component {
+const Header = () => {
   const baseStyle = useContext(StyleContext).theme;
   return (
     <View style={CommonStyles.Column}>
@@ -15,7 +15,7 @@ function Header(): Component {
       </Text>
     </View>
   );
-}
+};
 
 const styles = (baseStyle: ThemeStyle) =>
   StyleSheet.create({

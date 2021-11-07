@@ -1,8 +1,8 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {View, ActivityIndicator} from 'react-native';
 import CommonStyles from '../styles/common-styles';
 
-function LoadingContainer(props): Component {
+const LoadingContainer = props => {
   let currentView;
   if (props.isLoading) {
     currentView = (
@@ -14,6 +14,6 @@ function LoadingContainer(props): Component {
     currentView = <View>{props.children}</View>;
   }
   return <View>{currentView}</View>;
-}
+};
 
 export default LoadingContainer;

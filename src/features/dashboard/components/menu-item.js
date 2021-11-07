@@ -1,9 +1,9 @@
-import React, {Component, useContext} from 'react';
+import React, {useContext} from 'react';
 import {Button, StyleSheet, View} from 'react-native';
 import ThemeStyle from '../../../shared/entities/theme-stlye';
 import StyleContext from '../../../shared/providers/style-context';
 
-function MenuItem(props): Component {
+const MenuItem = props => {
   const baseStyle = useContext(StyleContext).theme;
   const {title, click} = props;
   return (
@@ -11,7 +11,7 @@ function MenuItem(props): Component {
       <Button title={title} onPress={click} />
     </View>
   );
-}
+};
 
 const styles = (baseStyle: ThemeStyle) =>
   StyleSheet.create({
