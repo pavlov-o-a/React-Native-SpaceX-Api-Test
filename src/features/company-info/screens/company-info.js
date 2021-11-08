@@ -1,5 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import React, {useContext, useEffect, useReducer} from 'react';
+import React, {useCallback, useContext, useEffect, useReducer} from 'react';
 import {SafeAreaView, View} from 'react-native';
 import {Actions} from '../../../shared/actions';
 import LoadingContainer from '../../../shared/components/loading-container';
@@ -16,26 +15,27 @@ const CompanyInfoScreen = () => {
     return {isLoading: state.isLoading, data: state.data};
   }
   const [state, dispatch] = useReducer(updateState, {isLoading: true});
+  const apiClient = useContext(ApiClientContext);
+
+  const getCompanyInfo = useCallback(() => {
+    if (state.isLoading) {
+      const request = getCompanyInfoRequest(apiClient.baseUrl);
+      apiClient
+        .fetchJson(request)
+        .then(data => {
+          state.data = CompanyInfoMapper(data);
+          dispatch(Actions.COMPLETE);
+        })
+        .catch(e => {
+          state.error = e;
+          dispatch(Actions.ERROR);
+        });
+    }
+  }, [apiClient, state]);
 
   useEffect(() => {
     getCompanyInfo();
-  }, []);
-
-  const apiClient = useContext(ApiClientContext);
-  const companyInfoRequest = getCompanyInfoRequest(apiClient.baseUrl);
-
-  function getCompanyInfo() {
-    apiClient
-      .fetchJson(companyInfoRequest)
-      .then(data => {
-        state.data = CompanyInfoMapper(data);
-        dispatch(Actions.COMPLETE);
-      })
-      .catch(e => {
-        state.error = e;
-        dispatch(Actions.ERROR);
-      });
-  }
+  }, [getCompanyInfo]);
 
   const theme = useContext(StyleContext).theme;
 

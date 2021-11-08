@@ -1,5 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import React, {useContext, useEffect, useReducer} from 'react';
+import React, {useCallback, useContext, useEffect, useReducer} from 'react';
 import {SafeAreaView, View} from 'react-native';
 import {Actions} from '../../../shared/actions';
 import LoadingContainer from '../../../shared/components/loading-container';
@@ -16,27 +15,28 @@ const LaunchesScreen = props => {
     return {isLoading: state.isLoading, launches: state.launches};
   }
   const [state, dispatch] = useReducer(updateState, {isLoading: true});
+  const apiClient = useContext(ApiClientContext);
+
+  const getLaunches = useCallback(() => {
+    if (state.isLoading === true) {
+      const request = getLaunchesRequest(apiClient.baseUrl);
+      apiClient
+        .fetchJson(request)
+        .then(data => {
+          state.launches = LunchesMapper(data);
+          dispatch(Actions.COMPLETE);
+        })
+        .catch(e => {
+          state.error = e;
+          dispatch(Actions.ERROR);
+          console.log(e);
+        });
+    }
+  }, [apiClient, state]);
 
   useEffect(() => {
-    getCompanyInfo();
-  }, []);
-
-  const apiClient = useContext(ApiClientContext);
-  const launchesRequest = getLaunchesRequest(apiClient.baseUrl);
-
-  const getCompanyInfo = () => {
-    apiClient
-      .fetchJson(launchesRequest)
-      .then(data => {
-        state.launches = LunchesMapper(data);
-        dispatch(Actions.COMPLETE);
-      })
-      .catch(e => {
-        state.error = e;
-        dispatch(Actions.ERROR);
-        console.log(e);
-      });
-  };
+    getLaunches();
+  }, [getLaunches]);
 
   const theme: ThemeStyle = useContext(StyleContext).theme;
 
